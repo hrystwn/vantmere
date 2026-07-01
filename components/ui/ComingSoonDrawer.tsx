@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import NewsletterInput from "./NewsletterInput";
 
 interface ComingSoonDrawerProps {
   open: boolean;
@@ -12,8 +13,6 @@ export default function ComingSoonDrawer({
   open,
   onClose,
 }: ComingSoonDrawerProps) {
-  const [submitted, setSubmitted] = useState(false);
-
   useEffect(() => {
     if (!open) return;
 
@@ -48,23 +47,7 @@ export default function ComingSoonDrawer({
               Quiet permanence takes time. Leave an address and be first
               through the door.
             </p>
-            <form
-              className="mt-8 flex flex-col items-start gap-4"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSubmitted(true);
-              }}
-            >
-              <input
-                type="email"
-                required
-                placeholder="Email address"
-                className="w-full border-b border-gray-2 bg-transparent py-2 font-body text-ink placeholder:text-gray-2 focus:outline-none"
-              />
-              <button type="submit" className="micro-label">
-                {submitted ? "NOTED." : "NOTIFY ME"}
-              </button>
-            </form>
+            <NewsletterInput />
           </motion.aside>
         </>
       )}
