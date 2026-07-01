@@ -50,7 +50,7 @@ lib/
 - **Name**: VANTMÈRE (working name — trademark search is the user's responsibility before real-world use). Wordmark: display serif, wide letter-spacing, always uppercase.
 - **Voice**: restrained, declarative, slightly cold. Tagline: "Quiet permanence." No exclamation points anywhere.
 - **Palette**: black `#0A0A0A`, warm off-white `#F4F2EF`, 3 grayscale steps between. **No color anywhere**; imagery desaturated via CSS filter to conform.
-- **Type**: display = high-contrast editorial serif (Playfair Display or similar with license headroom); body/UI = tight grotesk (Inter or Space Grotesk); all-caps micro-labels with wide tracking for nav/buttons/meta. Fluid type scale via `clamp()`.
+- **Type**: display = Playfair Display (high-contrast editorial serif, OFL-licensed); body/UI = Space Grotesk (tight grotesk, OFL-licensed); all-caps micro-labels with wide tracking for nav/buttons/meta. Fluid type scale via `clamp()`.
 - **Signature motifs**:
   - Oversized serif section numerals (01 — 04)
   - Thin horizontal rules that draw themselves in on section entry
