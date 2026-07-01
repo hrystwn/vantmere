@@ -14,7 +14,7 @@
 - Fonts: Playfair Display (display), Space Grotesk (body/UI), via `next/font/google` only.
 - Brand copy: wordmark is `VANTMÈRE`, tagline `Quiet permanence.` — no exclamation points anywhere in site copy.
 - All imagery through `next/image` with `sizes` set; grayscale enforced with CSS `filter: grayscale(1)` on image wrappers (class `img-mono`).
-- Animations: transform/opacity only. Every ScrollTrigger lives inside `useGSAP` scoped to the section ref (auto-cleanup).
+- Animations: no layout-triggering properties (top/left/width/height/margin) — transform/opacity preferred; GPU-composited `clip-path` wipes are explicitly permitted where this plan prescribes them (user ruling 2026-07-02). Every ScrollTrigger lives inside `useGSAP` scoped to the section ref (auto-cleanup).
 - Reduced motion: all scroll animation registered inside `gsap.matchMedia('(prefers-reduced-motion: no-preference)')`; content must be fully visible without JS animation running.
 - No real commerce: "Add to cart" opens the ComingSoonDrawer only.
 - Gates for every task: `npx tsc --noEmit` passes and `npm run build` passes before commit.
