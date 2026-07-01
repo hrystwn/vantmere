@@ -62,7 +62,7 @@ export default function FeaturedDrop({ products }: { products: Product[] }) {
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"
-                className="scale-110 object-cover"
+                className="scale-125 object-cover"
               />
             </div>
             <h3 className="display-md mt-6">{product.name}</h3>
