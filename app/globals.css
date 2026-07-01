@@ -72,3 +72,19 @@ img.img-mono {
 .has-custom-cursor * {
   cursor: none;
 }
+
+/* Hero scroll hint (Task 5) — subtle bob, off entirely for reduced motion */
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 6px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-hint {
+    animation: scroll-hint 2s ease-in-out infinite;
+  }
+}
