@@ -61,3 +61,13 @@ img.img-mono {
 @media (prefers-reduced-motion: reduce) {
   .grain { animation: none; }
 }
+
+/* Footer ticker marquee (Task 4) */
+@keyframes marquee {
+  to { transform: translateX(-25%); }
+}
+
+/* custom cursor takes over pointer affordance across the page */
+.has-custom-cursor * {
+  cursor: none;
+}
