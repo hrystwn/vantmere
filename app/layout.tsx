@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { playfair, grotesk } from "@/lib/fonts";
+import LenisProvider from "@/lib/animation/LenisProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${grotesk.variable}`}>
       <body>
-        <main id="page">{children}</main>
+        <LenisProvider>
+          <main id="page">{children}</main>
+        </LenisProvider>
       </body>
     </html>
   );
