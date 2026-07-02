@@ -6,7 +6,7 @@ import Cursor from "@/components/ui/Cursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vantmere.example.com"),
+  metadataBase: new URL("https://vantmere.vercel.app"),
   title: "VANTMÈRE — Quiet permanence.",
   description:
     "VANTMÈRE. Luxury streetwear built on restraint. Quiet permanence.",
