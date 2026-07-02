@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { useSectionAnimation } from "@/lib/animation/useSectionAnimation";
 import SectionNumeral from "@/components/ui/SectionNumeral";
 import DrawnRule from "@/components/ui/DrawnRule";
@@ -42,10 +42,10 @@ export default function Manifesto() {
 
       <p className="display-md max-w-5xl">
         {WORDS.map((word, i) => (
-          <span key={i} className="word inline-block">
-            {word}
+          <Fragment key={i}>
+            <span className="word inline-block">{word}</span>
             {i < WORDS.length - 1 ? " " : ""}
-          </span>
+          </Fragment>
         ))}
       </p>
     </section>

@@ -29,9 +29,9 @@ export default function LookbookScroller() {
   return (
     <section ref={ref} className="overflow-hidden" data-cursor="drag">
       {/* Mobile vertical stack; desktop horizontal scroll pin configured in hook */}
-      <div className="track flex max-md:flex-col">
+      <div className="track flex max-md:flex-col motion-reduce:flex-col">
         {lookbookImages.map((img, i) => (
-          <figure key={img.src} className="relative shrink-0 w-screen h-screen max-md:h-[70vh]">
+          <figure key={img.src} className="relative shrink-0 w-screen h-screen max-md:h-[70vh] motion-reduce:h-[70vh]">
             <span className="img-mono absolute inset-0">
               <Image src={img.src} alt={img.caption} fill sizes="100vw" className="object-cover" priority={i === 0} />
             </span>

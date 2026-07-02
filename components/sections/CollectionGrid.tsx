@@ -77,6 +77,7 @@ export default function CollectionGrid({ products }: { products: Product[] }) {
             key={f}
             type="button"
             onClick={() => setFilter(f)}
+            aria-pressed={filter === f}
             className={`micro-label border-b pb-1 transition-colors ${
               filter === f
                 ? "border-paper text-paper"

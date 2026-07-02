@@ -40,8 +40,8 @@ export default function ProductCard({
         )}
       </div>
       <h2 className="font-display text-lg mt-6">{product.name}</h2>
-      <p className="micro-label mt-2 text-gray-2 opacity-0 transition-opacity group-hover:opacity-100">
-        ${product.price}
+      <p className="micro-label mt-2 text-gray-2 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100">
+        ${product.price.toLocaleString("en-US")}
       </p>
     </Link>
   );

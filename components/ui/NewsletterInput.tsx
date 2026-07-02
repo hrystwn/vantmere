@@ -24,6 +24,7 @@ export default function NewsletterInput() {
         type="email"
         required
         placeholder="Email address"
+        aria-label="Email address"
         className="w-full border-b border-gray-2 bg-transparent py-2 font-body placeholder:text-gray-2 focus:outline-none"
       />
       <button type="submit" className="micro-label">

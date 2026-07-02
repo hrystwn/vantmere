@@ -43,7 +43,7 @@ export default function ProductDetail({ product }: { product: Product }) {
         <div className="md:col-start-2 md:row-start-1 md:row-span-full md:sticky md:top-24 md:self-start">
           <p className="micro-label text-gray-2">{product.category}</p>
           <h1 className="display-md mt-4">{product.name}</h1>
-          <p className="micro-label mt-4 text-gray-2">${product.price}</p>
+          <p className="micro-label mt-4 text-gray-2">${product.price.toLocaleString("en-US")}</p>
           <p className="mt-8 max-w-prose leading-relaxed text-gray-3">
             {product.fabricStory}
           </p>

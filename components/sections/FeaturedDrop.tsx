@@ -66,7 +66,7 @@ export default function FeaturedDrop({ products }: { products: Product[] }) {
               />
             </div>
             <h3 className="display-md mt-6">{product.name}</h3>
-            <p className="micro-label mt-2 text-gray-2">${product.price}</p>
+            <p className="micro-label mt-2 text-gray-2">${product.price.toLocaleString("en-US")}</p>
           </Link>
         ))}
       </div>
