@@ -11,7 +11,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = getProductBySlug(slug);
-  return { title: product ? `${product.name} — VANTMÈRE` : "VANTMÈRE" };
+  if (!product) return { title: "VANTMÈRE" };
+  return {
+    title: `${product.name} — VANTMÈRE`,
+    description: product.fabricStory.split(". ")[0] + ".",
+  };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {

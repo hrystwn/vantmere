@@ -7,6 +7,8 @@ import { products } from "@/lib/data/products";
 
 export const metadata: Metadata = {
   title: "Collection — VANTMÈRE",
+  description:
+    "Outerwear, knitwear, trousers, and accessories, cut in small runs and never restocked.",
 };
 
 export default function CollectionPage() {

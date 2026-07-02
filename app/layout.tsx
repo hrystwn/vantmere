@@ -6,9 +6,17 @@ import Cursor from "@/components/ui/Cursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vantmere.example.com"),
   title: "VANTMÈRE — Quiet permanence.",
   description:
     "VANTMÈRE. Luxury streetwear built on restraint. Quiet permanence.",
+  openGraph: {
+    title: "VANTMÈRE — Quiet permanence.",
+    description:
+      "VANTMÈRE. Luxury streetwear built on restraint. Quiet permanence.",
+    siteName: "VANTMÈRE",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

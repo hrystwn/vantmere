@@ -13,10 +13,7 @@ export default function Footer() {
   return (
     <footer className="relative flex min-h-screen flex-col justify-between bg-ink px-6 py-10 text-paper">
       <div className="overflow-hidden">
-        <div
-          className="micro-label flex w-max whitespace-nowrap"
-          style={{ animation: "marquee 30s linear infinite" }}
-        >
+        <div className="animate-marquee micro-label flex w-max whitespace-nowrap">
           {Array.from({ length: 4 }).map((_, i) => (
             <span key={i} className="pr-4">
               {TICKER_TEXT}
