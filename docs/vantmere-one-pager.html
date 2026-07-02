@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VANTMÈRE — Brand One-Pager</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 210mm; height: 297mm; }
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: #faf9f5;
+    color: #141413;
+    padding: 16mm 18mm;
+    display: flex;
+    flex-direction: column;
+  }
+  h1, h2, h3 { font-family: 'Poppins', Arial, sans-serif; }
+
+  .masthead { border-bottom: 3px solid #141413; padding-bottom: 6mm; margin-bottom: 7mm; }
+  .masthead .eyebrow {
+    font-family: 'Poppins', Arial, sans-serif; font-size: 8.5pt; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase; color: #d97757; margin-bottom: 2mm;
+  }
+  .masthead h1 { font-size: 30pt; font-weight: 700; letter-spacing: 0.12em; }
+  .masthead .tagline { font-style: italic; font-size: 12pt; color: #141413; margin-top: 1.5mm; }
+
+  .intro { font-size: 10pt; line-height: 1.55; margin-bottom: 7mm; max-width: 165mm; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm 8mm; flex: 1; }
+  .card { background: #ffffff; border: 1px solid #e8e6dc; border-radius: 3mm; padding: 5.5mm 6mm; }
+  .card h2 {
+    font-size: 10.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 3mm; padding-bottom: 1.5mm; border-bottom: 2px solid;
+  }
+  .card.accent-orange h2 { border-color: #d97757; }
+  .card.accent-blue h2 { border-color: #6a9bcc; }
+  .card.accent-green h2 { border-color: #788c5d; }
+  .card p, .card li { font-size: 9pt; line-height: 1.5; }
+  .card ul { list-style: none; }
+  .card li { margin-bottom: 1.6mm; padding-left: 4mm; position: relative; }
+  .card li::before { content: "—"; position: absolute; left: 0; color: #b0aea5; }
+  .card .kv b { font-family: 'Poppins', Arial, sans-serif; font-weight: 600; font-size: 8.5pt; }
+
+  .swatches { display: flex; gap: 2.5mm; margin-top: 3mm; }
+  .swatch { flex: 1; height: 9mm; border-radius: 1.5mm; border: 1px solid #e8e6dc; position: relative; }
+  .swatch span {
+    position: absolute; bottom: -4.5mm; left: 0; right: 0; text-align: center;
+    font-family: 'Poppins', Arial, sans-serif; font-size: 6pt; color: #b0aea5; letter-spacing: 0.04em;
+  }
+
+  .stats { display: flex; gap: 4mm; margin-top: 1mm; }
+  .stat { flex: 1; text-align: center; padding: 3mm 1mm; background: #e8e6dc; border-radius: 2mm; }
+  .stat .num { font-family: 'Poppins', Arial, sans-serif; font-size: 15pt; font-weight: 700; color: #d97757; }
+  .stat .lbl { font-family: 'Poppins', Arial, sans-serif; font-size: 6.5pt; text-transform: uppercase; letter-spacing: 0.08em; color: #141413; margin-top: 0.5mm; }
+
+  .footer {
+    margin-top: 7mm; padding-top: 4mm; border-top: 1px solid #b0aea5;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .footer .note { font-size: 8pt; font-style: italic; color: #b0aea5; }
+  .footer .mark { font-family: 'Poppins', Arial, sans-serif; font-size: 8pt; font-weight: 600; letter-spacing: 0.18em; white-space: nowrap; flex-shrink: 0; margin-right: 8mm; }
+</style>
+</head>
+<body>
+
+  <div class="masthead">
+    <div class="eyebrow">Brand One-Pager · July 2026</div>
+    <h1>VANTMÈRE</h1>
+    <div class="tagline">Quiet permanence.</div>
+  </div>
+
+  <p class="intro">
+    VANTMÈRE is a luxury streetwear label built on restraint: garments made the way cities build
+    monuments — slowly, in stone tones, meant to be walked past for decades. The brand pairs an
+    editorial-fashion sensibility with a severe monochrome identity and a digital flagship designed
+    to award-site standards.
+  </p>
+
+  <div class="grid">
+    <div class="card accent-orange">
+      <h2>Identity System</h2>
+      <ul>
+        <li><b>Voice</b> — restrained, declarative, slightly cold. No exclamation points, ever.</li>
+        <li><b>Type</b> — Playfair Display for oversized editorial statements; Space Grotesk for all-caps micro-labels.</li>
+        <li><b>Motifs</b> — oversized serif numerals, self-drawing rules, film grain at 3%, a cursor that says VIEW and DRAG.</li>
+      </ul>
+      <div class="swatches">
+        <div class="swatch" style="background:#0a0a0a"><span>INK</span></div>
+        <div class="swatch" style="background:#2e2c2a"><span>GRAY 1</span></div>
+        <div class="swatch" style="background:#8a8683"><span>GRAY 2</span></div>
+        <div class="swatch" style="background:#d6d2cd"><span>GRAY 3</span></div>
+        <div class="swatch" style="background:#f4f2ef"><span>PAPER</span></div>
+      </div>
+    </div>
+
+    <div class="card accent-blue">
+      <h2>The Collection</h2>
+      <ul>
+        <li>Twelve pieces across four categories: Outerwear, Knitwear, Trousers, Accessories.</li>
+        <li>Priced $150–$1,480; anchored by the Sculpted Overcoat in double-faced Italian wool.</li>
+        <li>Cut in small runs, numbered, never restocked. Three fabrics, five silhouettes, no seasons.</li>
+        <li>Every product carries a two-sentence fabric story in the house voice.</li>
+      </ul>
+    </div>
+
+    <div class="card accent-green">
+      <h2>Digital Flagship</h2>
+      <ul>
+        <li>Six-page marketing site: cinematic WebGL hero, pinned manifesto, editorial collection grid, horizontal-scroll lookbook.</li>
+        <li>Next.js 16 · GSAP + Lenis · React Three Fiber; fully responsive with reduced-motion degradation throughout.</li>
+        <li>All shopping UI is presentational — the store front opens with a "coming soon" drawer.</li>
+      </ul>
+      <div class="stats">
+        <div class="stat"><div class="num">98+</div><div class="lbl">Lighthouse Desktop</div></div>
+        <div class="stat"><div class="num">88+</div><div class="lbl">Lighthouse Mobile</div></div>
+        <div class="stat"><div class="num">20</div><div class="lbl">Static Pages</div></div>
+      </div>
+    </div>
+
+    <div class="card accent-orange">
+      <h2>Status &amp; Next Steps</h2>
+      <ul>
+        <li>Site complete on <span style="font-family:Poppins,Arial,sans-serif;font-size:8.5pt">main</span>: 16 commits, tested, reviewed, merged.</li>
+        <li>Replace Unsplash placeholders with an original monochrome photoshoot.</li>
+        <li>Trademark search on the VANTMÈRE name before any public launch.</li>
+        <li>Set production domain and OG image; run a real-device motion QA pass.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="mark">VANTMÈRE — EST. 2026</div>
+    <div class="note">Internal summary. Document styled to Anthropic brand guidelines; the label's own identity is strictly monochrome.</div>
+  </div>
+
+</body>
+</html>
