@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "About — VANTMÈRE",
   description:
     "The house behind the garments — three fabrics, five silhouettes, no seasons.",
+  alternates: { canonical: "/about" },
 };
 
 const LINES = [

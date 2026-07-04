@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Contact — VANTMÈRE",
   description:
     "Stockists, correspondence, and the address for everything that cannot wait for a season.",
+  alternates: { canonical: "/contact" },
 };
 
 const STOCKISTS = [

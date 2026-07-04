@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Collection — VANTMÈRE",
   description:
     "Outerwear, knitwear, trousers, and accessories, cut in small runs and never restocked.",
+  alternates: { canonical: "/collection" },
 };
 
 export default function CollectionPage() {

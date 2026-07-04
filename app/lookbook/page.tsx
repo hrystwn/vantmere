@@ -5,6 +5,7 @@ import LookbookScroller from "@/components/sections/LookbookScroller";
 export const metadata: Metadata = {
   title: "Lookbook — VANTMÈRE",
   description: "Six frames from Volume 01. No noise, no styling notes.",
+  alternates: { canonical: "/lookbook" },
 };
 
 export default function LookbookPage() {
