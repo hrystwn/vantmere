@@ -76,11 +76,11 @@ export default function Cursor() {
   return (
     <>
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[90] h-2 w-2 rounded-full bg-paper"
+        className="pointer-events-none fixed left-0 top-0 z-[var(--z-cursor)] h-2 w-2 rounded-full bg-paper"
         style={{ x: dotX, y: dotY, translateX: "-50%", translateY: "-50%" }}
       />
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[90] flex h-10 w-10 items-center justify-center rounded-full border border-paper"
+        className="pointer-events-none fixed left-0 top-0 z-[var(--z-cursor)] flex h-10 w-10 items-center justify-center rounded-full border border-paper"
         style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}
         animate={{ scale: active ? 2 : 1 }}
         transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}

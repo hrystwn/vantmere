@@ -73,7 +73,7 @@ export default function Nav() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 flex justify-between items-center px-6 py-5 mix-blend-difference">
+      <header className="fixed top-0 inset-x-0 z-[var(--z-nav-header)] flex justify-between items-center px-6 py-5 mix-blend-difference">
         <Link href="/" className="font-display tracking-[0.3em] text-sm">
           VANTMÈRE
         </Link>
@@ -89,7 +89,7 @@ export default function Nav() {
         {open && (
           <motion.div
             ref={overlayRef}
-            className="fixed inset-0 bg-ink z-40"
+            className="fixed inset-0 bg-ink z-[var(--z-nav-overlay)]"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}

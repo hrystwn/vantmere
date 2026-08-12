@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { lookbookImages } from "@/lib/data/lookbook";
 import { useSectionAnimation } from "@/lib/animation/useSectionAnimation";
+import MonoImage from "@/components/ui/MonoImage";
 
 export default function LookbookScroller() {
   const ref = useRef<HTMLElement>(null);
@@ -32,9 +32,13 @@ export default function LookbookScroller() {
       <div className="track flex max-md:flex-col motion-reduce:flex-col">
         {lookbookImages.map((img, i) => (
           <figure key={img.src} className="relative shrink-0 w-screen h-screen max-md:h-[70vh] motion-reduce:h-[70vh]">
-            <span className="img-mono absolute inset-0">
-              <Image src={img.src} alt={img.caption} fill sizes="100vw" className="object-cover" priority={i === 0} />
-            </span>
+            <MonoImage
+              src={img.src}
+              alt={img.caption}
+              sizes="100vw"
+              wrapperClassName="absolute inset-0"
+              priority={i === 0}
+            />
             <figcaption className="absolute bottom-10 left-6 md:left-10 display-lg mix-blend-difference">
               {img.caption}
             </figcaption>

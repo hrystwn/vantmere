@@ -29,14 +29,14 @@ export default function ComingSoonDrawer({
       {open && (
         <>
           <motion.div
-            className="fixed inset-0 z-[60] bg-ink/60"
+            className="fixed inset-0 z-[var(--z-drawer-backdrop)] bg-ink/60"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
           <motion.aside
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-paper text-ink z-[70] p-10"
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-paper text-ink z-[var(--z-drawer-panel)] p-10"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

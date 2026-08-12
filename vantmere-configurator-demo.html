@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vantmere Atelier — Made to Order</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230D0B09' stroke='%23D9A441' stroke-width='2'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia' font-size='30' fill='%23D9A441'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ————— Vantmere Atelier · design tokens ————— */
+:root{
+  --ink:#0D0B09;
+  --panel:#161310;
+  --panel-2:#1C1815;
+  --line:#2B241E;
+  --line-2:#3B322A;
+  --cream:#EFE7DA;
+  --muted:#9A8F80;
+  --faint:#6E655A;
+  --copper:#D9A441;
+  --copper-2:#B87333;
+  --copper-deep:#8C5A2B;
+  --danger:#C96F5E;
+  --r:14px;
+  --display:'Marcellus', Georgia, 'Times New Roman', serif;
+  --body:'Archivo', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono:'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(900px 500px at 50% -10%, rgba(217,164,65,.07), transparent 60%);
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+::selection{background:var(--copper);color:var(--ink)}
+button{font-family:var(--body);cursor:pointer;border:none;background:none;color:inherit}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-radius:4px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
+.hairline{height:1px;background:linear-gradient(90deg,var(--line-2),transparent);margin:10px 0 0}
+.mono{font-family:var(--mono)}
+.shell{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+/* ————— buttons ————— */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-size:14px;font-weight:600;letter-spacing:.02em;
+  padding:11px 20px;border-radius:10px;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease, opacity .15s ease;
+  white-space:nowrap;
+}
+.btn-copper{
+  background:linear-gradient(135deg,var(--copper),var(--copper-2));
+  color:#1A1108;
+  box-shadow:0 2px 14px rgba(217,164,65,.18);
+}
+.btn-copper:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(217,164,65,.30)}
+.btn-copper:active{transform:translateY(0)}
+.btn-ghost{border:1px solid var(--line-2);color:var(--cream);background:transparent}
+.btn-ghost:hover{border-color:var(--copper);color:var(--copper)}
+.btn[disabled]{opacity:.38;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* ————— header ————— */
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(13,11,9,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{display:flex;align-items:center;gap:14px}
+.roundel{
+  width:44px;height:44px;border-radius:50%;flex:none;
+  border:1px solid var(--copper-deep);
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.roundel::before{content:"";position:absolute;inset:4px;border-radius:50%;border:1px solid var(--line-2)}
+.roundel span{font-family:var(--display);font-size:20px;color:var(--copper);line-height:1;transform:translateY(1px)}
+.brand-name{font-family:var(--display);font-size:17px;letter-spacing:.30em;text-indent:.30em;line-height:1.2}
+.brand-sub{font-size:9.5px;font-weight:600;letter-spacing:.30em;color:var(--copper);text-transform:uppercase}
+.hdr-total{
+  display:flex;align-items:baseline;gap:10px;
+  border:1px solid var(--line-2);border-radius:999px;padding:8px 16px;background:var(--panel);
+}
+.hdr-total .cap{font-size:10px;font-weight:600;letter-spacing:.20em;color:var(--muted);text-transform:uppercase}
+.hdr-total .amt{font-family:var(--mono);font-size:16px;color:var(--copper)}
+
+/* ————— intro ————— */
+.intro{padding:38px 0 6px}
+.intro h1{font-family:var(--display);font-weight:400;font-size:34px;line-height:1.2;margin:10px 0 8px}
+.intro p{color:var(--muted);font-size:15.5px;max-width:560px}
+
+/* ————— layout ————— */
+.layout{display:grid;grid-template-columns:1.04fr .96fr;gap:36px;align-items:start;padding:26px 0 90px}
+
+/* ————— stage / preview ————— */
+.stage-col{position:sticky;top:92px}
+.stage{
+  background:radial-gradient(130% 105% at 50% 0%, #272119 0%, #171310 68%);
+  border:1px solid var(--line);border-radius:var(--r);
+  padding:18px 18px 8px;position:relative;overflow:hidden;
+}
+.stage::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(420px 240px at 50% 8%, rgba(217,164,65,.10), transparent 70%);
+}
+.stage svg{width:100%;height:auto;display:block;position:relative;z-index:1}
+.stage-cap{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:14px 4px 12px;position:relative;z-index:1;
+}
+.stage-cap .nm{font-family:var(--display);font-size:21px;letter-spacing:.02em}
+.stage-cap .cl{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+.stage-note{margin-top:12px;font-size:12px;color:var(--faint);display:flex;justify-content:space-between;gap:12px;padding:0 4px}
+
+/* ————— option groups ————— */
+.group{margin-bottom:26px}
+.group-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px;gap:12px}
+.g-idx{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.14em;margin-right:8px}
+.g-label{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--copper)}
+.g-val{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+
+.opt-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opt-card{
+  text-align:left;padding:13px 14px;border:1px solid var(--line-2);border-radius:11px;
+  background:var(--panel);display:flex;flex-direction:column;gap:2px;
+  transition:border-color .15s ease, background .15s ease;
+}
+.opt-card:hover{border-color:var(--copper-deep)}
+.opt-card .nm{font-family:var(--display);font-size:16.5px;line-height:1.25}
+.opt-card .pr{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.opt-card[aria-checked="true"]{border-color:var(--copper);background:var(--panel-2);box-shadow:0 0 0 1px var(--copper) inset}
+.opt-card[aria-checked="true"] .pr{color:var(--copper)}
+
+.swatches{display:flex;gap:11px;flex-wrap:wrap}
+.sw{
+  width:40px;height:40px;border-radius:50%;position:relative;flex:none;
+  border:2px solid var(--line-2);
+  transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+.sw:hover{transform:scale(1.08)}
+.sw[aria-checked="true"]{border-color:var(--copper);box-shadow:0 0 0 3px rgba(217,164,65,.22)}
+.sw .lim{
+  position:absolute;top:-5px;right:-5px;width:14px;height:14px;border-radius:50%;
+  background:var(--copper);color:#1A1108;font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);
+}
+
+.rows{display:flex;flex-direction:column;gap:8px}
+.row-opt{
+  display:flex;justify-content:space-between;align-items:center;gap:14px;text-align:left;
+  padding:12px 15px;border:1px solid var(--line-2);border-radius:11px;background:var(--panel);
+  transition:border-color .15s ease, background .15s ease;
+}
+.row-opt:hover{border-color:var(--copper-deep)}
+.row-opt .nm{font-size:14.5px;font-weight:500}
+.row-opt .ds{font-size:12px;color:var(--faint);margin-top:1px}
+.row-opt .pr{font-family:var(--mono);font-size:13px;color:var(--muted);flex:none}
+.row-opt[aria-checked="true"]{border-color:var(--copper);background:var(--panel-2);box-shadow:0 0 0 1px var(--copper) inset}
+.row-opt[aria-checked="true"] .pr{color:var(--copper)}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip-opt{
+  padding:8px 15px;border:1px solid var(--line-2);border-radius:999px;
+  font-size:13px;font-weight:500;color:var(--muted);background:var(--panel);
+  transition:border-color .12s ease, color .12s ease;
+}
+.chip-opt:hover{border-color:var(--copper-deep);color:var(--cream)}
+.chip-opt[aria-checked="true"]{border-color:var(--copper);color:var(--copper);background:var(--panel-2)}
+
+.mono-row{display:flex;gap:12px;align-items:center}
+#monoInput{
+  width:130px;padding:11px 14px;border-radius:10px;text-align:center;
+  background:var(--panel);border:1px solid var(--line-2);
+  color:var(--copper);font-size:17px;font-family:var(--display);
+  letter-spacing:.34em;text-indent:.34em;text-transform:uppercase;
+  transition:border-color .15s ease;
+}
+#monoInput::placeholder{color:var(--faint);font-family:var(--body);font-size:13px;letter-spacing:.05em;text-indent:0;text-transform:none}
+#monoInput:focus{border-color:var(--copper);outline:none}
+.mono-hint{font-size:12px;color:var(--faint)}
+.mono-hint b{color:var(--muted);font-weight:600}
+
+/* ————— summary ————— */
+.summary{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px 20px 18px;margin-top:34px;
+}
+.summary .sec-head{margin-bottom:6px}
+.receipt{font-family:var(--mono);font-size:12.5px;margin-top:12px}
+.receipt .ln{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.receipt .ln .k{color:var(--muted)}
+.receipt .ln .v{color:var(--cream);text-align:right}
+.receipt .ln .v.plus{color:var(--copper)}
+.specline{font-size:12px;color:var(--faint);margin-top:12px;line-height:1.7}
+.specline b{color:var(--muted);font-weight:600}
+.total-row{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 14px}
+.total-row .cap{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.total-row .amt{font-family:var(--mono);font-size:32px;color:var(--copper);line-height:1}
+#orderBtn{width:100%;padding:15px 20px;font-size:15px}
+.fineprint{font-size:11.5px;color:var(--faint);margin-top:12px;text-align:center}
+
+/* ————— mobile order bar ————— */
+.mbar{
+  position:fixed;bottom:0;left:0;right:0;z-index:30;display:none;
+  align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(13,11,9,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);
+}
+.mbar .amt{font-family:var(--mono);font-size:20px;color:var(--copper)}
+.mbar .cap{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block}
+
+/* ————— footer ————— */
+footer{border-top:1px solid var(--line);padding:22px 0 30px}
+.foot-row{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.foot-row .note{font-size:12.5px;color:var(--faint)}
+#resetBtn{font-size:12.5px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+#resetBtn:hover{color:var(--danger)}
+
+/* ————— order overlay ————— */
+#overlay{
+  position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;
+  background:rgba(9,7,5,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  padding:24px;
+}
+#overlay.on{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.ms-card{
+  width:100%;max-width:430px;background:var(--panel-2);
+  border:1px solid var(--copper-deep);border-radius:16px;
+  padding:30px 28px 26px;text-align:center;position:relative;
+  animation:popIn .3s cubic-bezier(.2,.9,.3,1.2);
+  box-shadow:0 24px 70px rgba(0,0,0,.55);
+}
+@keyframes popIn{from{transform:translateY(14px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.ms-card h3{font-family:var(--display);font-weight:400;font-size:27px;margin:10px 0 2px}
+.ms-card .ordno{font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.08em}
+.ms-rule{height:1px;background:linear-gradient(90deg,transparent,var(--copper-deep),transparent);margin:18px 0 4px}
+.ms-recap{font-family:var(--mono);font-size:12.5px;text-align:left;margin:12px 0 4px}
+.ms-recap .ln{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.ms-recap .ln .k{color:var(--muted)}
+.ms-recap .ln.tt .k,.ms-recap .ln.tt .v{color:var(--copper);font-weight:500}
+.ms-eta{font-size:13px;color:var(--muted);margin:14px 0 20px}
+.ms-eta b{color:var(--cream);font-weight:600}
+.ms-actions{display:flex;flex-direction:column;gap:10px}
+.ms-actions .btn{width:100%}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:41}
+#toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+  background:var(--panel-2);border:1px solid var(--line-2);color:var(--cream);
+  font-size:13.5px;padding:11px 20px;border-radius:999px;opacity:0;z-index:50;
+  transition:opacity .25s ease, transform .25s ease;pointer-events:none;white-space:nowrap;
+}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ————— responsive ————— */
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:26px;padding-bottom:40px}
+  .stage-col{position:static}
+  .mbar{display:flex}
+  body{padding-bottom:74px}
+  .intro h1{font-size:28px}
+}
+@media (max-width:520px){
+  .shell{padding:0 18px}
+  .opt-cards{grid-template-columns:1fr}
+  .hdr-total .cap{display:none}
+  .brand-name{font-size:14px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="shell">
+    <div class="topbar">
+      <div class="brand">
+        <div class="roundel" aria-hidden="true"><span>V</span></div>
+        <div>
+          <div class="brand-name">VANTMERE</div>
+          <div class="brand-sub">The Atelier</div>
+        </div>
+      </div>
+      <div class="hdr-total"><span class="cap">Your build</span><span class="amt" id="hdrTotal">$0</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+  <div class="intro">
+    <span class="eyebrow">Made to order · Cut to your spec</span>
+    <h1>Build your piece.</h1>
+    <p>Choose the garment, cloth and finish. Every piece is cut and sewn to order in our atelier — watch it take shape as you go.</p>
+  </div>
+
+  <div class="layout">
+    <!-- ═══════════ PREVIEW ═══════════ -->
+    <div class="stage-col">
+      <div class="stage">
+        <svg id="pv" viewBox="0 0 420 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Live garment preview">
+          <defs>
+            <pattern id="pat-twill" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="1.5" y1="0" x2="1.5" y2="8" stroke="#000" stroke-opacity=".20" stroke-width="2.2"/>
+              <line x1="5.5" y1="0" x2="5.5" y2="8" stroke="#fff" stroke-opacity=".07" stroke-width="1.5"/>
+            </pattern>
+            <pattern id="pat-knit" width="6" height="5" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="1.4" x2="6" y2="1.4" stroke="#000" stroke-opacity=".16" stroke-width="1.4"/>
+              <line x1="0" y1="3.8" x2="6" y2="3.8" stroke="#fff" stroke-opacity=".06" stroke-width="1"/>
+            </pattern>
+            <filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+          </defs>
+
+          <ellipse cx="210" cy="447" rx="118" ry="12" fill="#000" opacity=".4" filter="url(#soft)"/>
+
+          <g id="gWrap">
+            <!-- ——— TEE ——— -->
+            <g id="g-tee" style="display:none">
+              <path class="p-body p-sil" d="M172,86 Q210,72 248,86 L284,98 L322,172 Q324,178 318,181 L266,205 Q260,207 258,200 L252,182 L256,388 Q256,398 246,400 Q210,408 174,400 Q164,398 164,388 L168,182 L162,200 Q160,207 154,205 L102,181 Q96,178 98,172 L136,98 Z"/>
+              <path class="p-shade" fill="#000" opacity=".08" d="M252,182 L256,388 Q256,398 246,400 Q228,404 210,405 L212,182 Z"/>
+              <path class="p-shade" fill="#000" opacity=".12" d="M252,182 L258,200 L266,205 L253,212 Z"/>
+              <path class="p-shade" fill="#000" opacity=".12" d="M168,182 L162,200 L154,205 L167,212 Z"/>
+              <path class="p-lite" fill="#fff" opacity=".05" d="M136,98 L172,86 Q210,72 248,86 L240,112 L148,122 Z"/>
+              <g class="texslot"></g>
+              <path class="p-trim" d="M174,86 Q210,112 246,86 Q210,132 174,86 Z"/>
+              <path class="p-int" d="M179,87 Q210,104 241,87 Q210,114 179,87 Z"/>
+              <path class="p-st" fill="none" d="M103,172 L153,194"/>
+              <path class="p-st" fill="none" d="M317,172 L267,194"/>
+              <path class="p-st" fill="none" d="M170,386 Q210,396 250,386"/>
+              <text class="p-mono" x="247" y="182" text-anchor="middle" font-size="15"></text>
+            </g>
+
+            <!-- ——— HOODIE ——— -->
+            <g id="g-hoodie" style="display:none">
+              <path class="p-body p-out2" d="M160,96 Q210,28 260,96 Q263,105 254,107 Q210,86 166,107 Q157,105 160,96 Z"/>
+              <path class="p-int" d="M170,100 Q210,60 250,100 Q210,126 170,100 Z"/>
+              <path class="p-body p-sil" d="M168,94 Q210,80 252,94 L288,106 Q306,114 312,142 L326,236 L336,318 Q337,326 329,328 L291,334 Q284,335 282,328 L270,240 L258,168 L262,392 Q262,402 252,404 Q210,412 168,404 Q158,402 158,392 L162,168 L150,240 L138,328 Q136,335 129,334 L91,328 Q83,326 84,318 L94,236 L108,142 Q114,114 132,106 Z"/>
+              <path class="p-shade" fill="#000" opacity=".08" d="M258,168 L262,392 Q262,402 252,404 Q231,408 210,409 L212,168 Z"/>
+              <path class="p-shade" fill="#000" opacity=".12" d="M258,168 L270,240 L282,328 L272,330 L260,246 Z"/>
+              <path class="p-shade" fill="#000" opacity=".12" d="M162,168 L150,240 L138,328 L148,330 L160,246 Z"/>
+              <path class="p-lite" fill="#fff" opacity=".05" d="M132,106 L168,94 Q210,80 252,94 L245,118 L150,126 Z"/>
+              <g class="texslot"></g>
+              <path class="p-shade" fill="#000" opacity=".08" d="M180,298 L240,298 L252,312 L252,364 Q210,374 168,364 L168,312 Z"/>
+              <path class="p-st" fill="none" d="M180,298 L240,298 L252,312 L252,364 Q210,374 168,364 L168,312 Z"/>
+              <path class="p-trim" d="M83,320 L137,330 L133,354 L79,344 Z"/>
+              <path class="p-trim" d="M337,320 L283,330 L287,354 L341,344 Z"/>
+              <path class="p-trim" d="M160,388 L260,388 L260,415 Q210,424 160,415 Z"/>
+              <path class="p-st" fill="none" d="M85,330 L133,339"/>
+              <path class="p-st" fill="none" d="M335,330 L287,339"/>
+              <path class="p-st" fill="none" d="M164,406 Q210,414 256,406"/>
+              <path class="p-hw" fill="none" stroke-width="3" stroke-linecap="round" d="M197,114 C195,128 198,142 196,158"/>
+              <path class="p-hw" fill="none" stroke-width="3" stroke-linecap="round" d="M223,114 C225,128 222,142 224,158"/>
+              <circle class="p-hw-f" cx="196" cy="162" r="2.8"/>
+              <circle class="p-hw-f" cx="224" cy="162" r="2.8"/>
+              <text class="p-mono" x="250" y="230" text-anchor="middle" font-size="15"></text>
+            </g>
+
+            <!-- ——— OVERSHIRT ——— -->
+            <g id="g-shirt">
+              <path class="p-body p-sil" d="M170,88 Q210,76 250,88 L290,100 Q306,108 310,134 L318,240 L326,330 Q327,338 319,340 L285,345 Q278,346 277,338 L268,244 L262,170 L264,396 Q264,404 254,406 Q210,412 166,406 Q156,404 156,396 L158,170 L152,244 L143,338 Q142,346 135,345 L101,340 Q93,338 94,330 L102,240 L110,134 Q114,108 130,100 Z"/>
+              <path class="p-shade" fill="#000" opacity=".07" d="M262,170 L264,396 Q264,404 254,406 Q232,410 210,410 L212,170 Z"/>
+              <path class="p-shade" fill="#000" opacity=".12" d="M262,170 L268,244 L277,338 L267,340 L258,250 Z"/>
+              <path class="p-shade" fill="#000" opacity=".12" d="M158,170 L152,244 L143,338 L153,340 L162,250 Z"/>
+              <path class="p-lite" fill="#fff" opacity=".05" d="M130,100 L170,88 Q210,76 250,88 L243,112 L146,120 Z"/>
+              <g class="texslot"></g>
+              <path class="p-st" fill="none" d="M150,124 Q210,136 270,124"/>
+              <rect class="p-shade" fill="#000" opacity=".06" x="202" y="124" width="16" height="280" rx="2"/>
+              <path class="p-st" fill="none" d="M203.5,126 L203.5,402"/>
+              <path class="p-st" fill="none" d="M216.5,126 L216.5,402"/>
+              <path class="p-shade" fill="#000" opacity=".10" d="M162,176 L198,176 L198,186 Q189,194 180,194 Q171,194 162,186 Z"/>
+              <path class="p-shade" fill="#000" opacity=".07" d="M163,196 L197,196 L197,232 Q197,238 191,238 L169,238 Q163,238 163,232 Z"/>
+              <path class="p-st" fill="none" d="M163,196 L197,196 L197,232 Q197,238 191,238 L169,238 Q163,238 163,232 Z"/>
+              <path class="p-shade" fill="#000" opacity=".10" d="M222,176 L258,176 L258,186 Q249,194 240,194 Q231,194 222,186 Z"/>
+              <path class="p-shade" fill="#000" opacity=".07" d="M223,196 L257,196 L257,232 Q257,238 251,238 L229,238 Q223,238 223,232 Z"/>
+              <path class="p-st" fill="none" d="M223,196 L257,196 L257,232 Q257,238 251,238 L229,238 Q223,238 223,232 Z"/>
+              <circle class="p-hw-f" cx="180" cy="184" r="2.5"/>
+              <circle class="p-hw-f" cx="240" cy="184" r="2.5"/>
+              <path class="p-int" d="M180,90 Q210,104 240,90 Q210,118 180,90 Z"/>
+              <path class="p-trim" d="M172,86 Q210,72 248,86 L256,100 L213,130 L207,130 L164,100 Z"/>
+              <path class="p-trim" d="M93,331 L143,339 L139,363 L89,355 Z"/>
+              <path class="p-trim" d="M327,331 L277,339 L281,363 L331,355 Z"/>
+              <circle class="p-hw-f" cx="114" cy="349" r="3"/>
+              <circle class="p-hw-f" cx="306" cy="349" r="3"/>
+              <circle class="p-hw-f" cx="210" cy="146" r="4.2"/>
+              <circle class="p-hw-f" cx="210" cy="194" r="4.2"/>
+              <circle class="p-hw-f" cx="210" cy="242" r="4.2"/>
+              <circle class="p-hw-f" cx="210" cy="290" r="4.2"/>
+              <circle class="p-hw-f" cx="210" cy="338" r="4.2"/>
+              <circle class="p-hw-f" cx="210" cy="382" r="4.2"/>
+              <path class="p-st" fill="none" d="M162,396 Q210,404 258,396"/>
+              <text class="p-mono" x="240" y="220" text-anchor="middle" font-size="12"></text>
+            </g>
+          </g>
+        </svg>
+        <div class="stage-cap">
+          <span class="nm" id="capName">—</span>
+          <span class="cl" id="capSpec">—</span>
+        </div>
+      </div>
+      <div class="stage-note"><span>Cut &amp; sewn to order</span><span>Ships in 2–3 weeks</span></div>
+    </div>
+
+    <!-- ═══════════ OPTIONS ═══════════ -->
+    <div class="options-col">
+
+      <div class="group" id="grpGarment">
+        <div class="group-head"><span><span class="g-idx">01</span><span class="g-label">Garment</span></span><span class="g-val" id="vGarment"></span></div>
+        <div class="opt-cards" role="radiogroup" aria-label="Garment" id="rgGarment"></div>
+      </div>
+
+      <div class="group" id="grpColor">
+        <div class="group-head"><span><span class="g-idx">02</span><span class="g-label">Colour</span></span><span class="g-val" id="vColor"></span></div>
+        <div class="swatches" role="radiogroup" aria-label="Colour" id="rgColor"></div>
+      </div>
+
+      <div class="group" id="grpFabric">
+        <div class="group-head"><span><span class="g-idx">03</span><span class="g-label">Cloth</span></span><span class="g-val" id="vFabric"></span></div>
+        <div class="rows" role="radiogroup" aria-label="Cloth" id="rgFabric"></div>
+      </div>
+
+      <div class="group" id="grpTrim">
+        <div class="group-head"><span><span class="g-idx">04</span><span class="g-label" id="trimLabel">Trim</span></span><span class="g-val" id="vTrim"></span></div>
+        <div class="swatches" role="radiogroup" aria-label="Trim" id="rgTrim"></div>
+      </div>
+
+      <div class="group" id="grpHw">
+        <div class="group-head"><span><span class="g-idx">05</span><span class="g-label">Hardware</span></span><span class="g-val" id="vHw"></span></div>
+        <div class="swatches" role="radiogroup" aria-label="Hardware" id="rgHw"></div>
+      </div>
+
+      <div class="group" id="grpFit">
+        <div class="group-head"><span><span class="g-idx">06</span><span class="g-label">Fit</span></span><span class="g-val" id="vFit"></span></div>
+        <div class="chips" role="radiogroup" aria-label="Fit" id="rgFit"></div>
+      </div>
+
+      <div class="group" id="grpSize">
+        <div class="group-head"><span><span class="g-idx">07</span><span class="g-label">Size</span></span><span class="g-val" id="vSize"></span></div>
+        <div class="chips" role="radiogroup" aria-label="Size" id="rgSize"></div>
+      </div>
+
+      <div class="group" id="grpMono">
+        <div class="group-head"><span><span class="g-idx">08</span><span class="g-label">Monogram</span></span><span class="g-val" id="vMono"></span></div>
+        <div class="mono-row">
+          <input id="monoInput" type="text" maxlength="3" autocomplete="off" spellcheck="false" placeholder="ABC" aria-label="Monogram initials">
+          <span class="mono-hint">Up to 3 initials, chain-stitched in copper thread · <b>+$24</b><br>Leave blank to skip.</span>
+        </div>
+      </div>
+
+      <!-- ═══════════ SUMMARY ═══════════ -->
+      <div class="summary" id="summary">
+        <div class="sec-head">
+          <span class="eyebrow">Your build</span>
+          <div class="hairline"></div>
+        </div>
+        <div class="receipt" id="receipt"></div>
+        <div class="specline" id="specline"></div>
+        <div class="total-row">
+          <span class="cap">Total</span>
+          <span class="amt" id="totalAmt">$0</span>
+        </div>
+        <button class="btn btn-copper" id="orderBtn" type="button">Order now</button>
+        <p class="fineprint">Demo build · nothing is charged. Made to order, ships in 2–3 weeks.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="foot-row">
+      <span class="note">Vantmere · Atelier demo</span>
+      <button id="resetBtn" type="button">Reset demo</button>
+    </div>
+  </div>
+</footer>
+
+<!-- mobile order bar -->
+<div class="mbar" id="mbar">
+  <div><span class="cap">Total</span><span class="amt" id="mbarTotal">$0</span></div>
+  <button class="btn btn-copper" id="mbarBtn" type="button">Order now</button>
+</div>
+
+<!-- order confirmation overlay -->
+<div id="overlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+  <div class="ms-card">
+    <span class="eyebrow">The Atelier</span>
+    <h3 id="ovTitle">Order confirmed.</h3>
+    <div class="ordno" id="ordNo"></div>
+    <div class="ms-rule"></div>
+    <div class="ms-recap" id="ovRecap"></div>
+    <p class="ms-eta" id="ovEta"></p>
+    <div class="ms-actions">
+      <button class="btn btn-copper" id="ovDone" type="button">Done</button>
+      <button class="btn btn-ghost" id="ovNew" type="button">Start a new build</button>
+    </div>
+  </div>
+</div>
+<canvas id="confetti"></canvas>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ═══════════ VANTMERE ATELIER · configurator logic ═══════════ */
+(function(){
+"use strict";
+
+/* ——— catalog ——— */
+const GARMENTS = {
+  tee:   { name:"The Crew Tee",        price:95,  svg:"g-tee",    trimLabel:"Neck rib",       hw:false },
+  hoodie:{ name:"The Field Hoodie",    price:185, svg:"g-hoodie", trimLabel:"Cuffs & hem",    hw:true  },
+  shirt: { name:"The Camden Overshirt",price:245, svg:"g-shirt",  trimLabel:"Collar & cuffs", hw:true  }
+};
+const COLORS = [
+  { id:"ink",     name:"Ink",     hex:"#2B2521", price:0  },
+  { id:"ecru",    name:"Ecru",    hex:"#E6DCC6", price:0  },
+  { id:"camel",   name:"Camel",   hex:"#C29A66", price:0  },
+  { id:"storm",   name:"Storm",   hex:"#5C6672", price:0  },
+  { id:"olive",   name:"Olive",   hex:"#67684C", price:12 },
+  { id:"oxblood", name:"Oxblood", hex:"#6E3A36", price:12 }
+];
+const FABRICS = [
+  { id:"cotton", name:"Organic cotton",  desc:"Ring-spun, 220 gsm · everyday weight", price:0  },
+  { id:"twill",  name:"Brushed twill",   desc:"Cotton twill, 310 gsm · soft handle",  price:35 },
+  { id:"merino", name:"Merino blend",    desc:"Merino wool blend, 260 gsm · thermic", price:85 }
+];
+const TRIMS = [
+  { id:"tonal",  name:"Tonal",  hex:null,      price:0  },
+  { id:"ecru",   name:"Ecru",   hex:"#E6DCC6", price:18 },
+  { id:"ink",    name:"Ink",    hex:"#2B2521", price:18 },
+  { id:"copper", name:"Copper", hex:"#C98F3D", price:18 }
+];
+const HARDWARE = [
+  { id:"copper", name:"Copper",      hex:"#D9A441" },
+  { id:"horn",   name:"Horn",        hex:"#7A5A3A" },
+  { id:"matte",  name:"Matte black", hex:"#35322E" }
+];
+const FITS  = [ {id:"slim",name:"Slim",sx:.955}, {id:"regular",name:"Regular",sx:1}, {id:"relaxed",name:"Relaxed",sx:1.075} ];
+const SIZES = ["XS","S","M","L","XL","XXL"];
+const MONO_PRICE = 24;
+
+const DEFAULTS = { garment:"shirt", color:"ink", fabric:"twill", trim:"tonal", hw:"copper", fit:"regular", size:"M", mono:"" };
+let state = { ...DEFAULTS };
+
+/* ——— colour helpers ——— */
+function rgb(hex){ const n=parseInt(hex.slice(1),16); return [n>>16&255,n>>8&255,n&255]; }
+function toHex(c){ return "#"+c.map(v=>Math.round(Math.max(0,Math.min(255,v))).toString(16).padStart(2,"0")).join(""); }
+function shade(hex,p){ const c=rgb(hex); const t=p<0?0:255, a=Math.abs(p); return toHex(c.map(v=>v+(t-v)*a)); }
+function lum(hex){ const c=rgb(hex); return (0.299*c[0]+0.587*c[1]+0.114*c[2])/255; }
+const fmt = n => "$" + n.toLocaleString("en-US");
+
+/* ——— DOM helpers ——— */
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+function radio(container, options, key, renderBtn){
+  const box = $(container); box.innerHTML = "";
+  options.forEach(o=>{
+    const b = document.createElement("button");
+    b.type = "button"; b.setAttribute("role","radio"); b.dataset.id = o.id;
+    renderBtn(b,o);
+    b.addEventListener("click", ()=>{ state[key] = o.id; render(); });
+    box.appendChild(b);
+  });
+}
+
+/* ——— build option groups ——— */
+radio("#rgGarment", Object.entries(GARMENTS).map(([id,g])=>({id,...g})), "garment", (b,o)=>{
+  b.className = "opt-card";
+  b.innerHTML = `<span class="nm">${o.name.replace("The ","")}</span><span class="pr">${fmt(o.price)}</span>`;
+});
+radio("#rgColor", COLORS, "color", (b,o)=>{
+  b.className = "sw"; b.title = o.name + (o.price?` · +${fmt(o.price)}`:"");
+  b.style.background = `radial-gradient(circle at 35% 30%, ${shade(o.hex,.18)}, ${o.hex} 55%, ${shade(o.hex,-.22)})`;
+  if(o.price) b.innerHTML = `<span class="lim">+</span>`;
+});
+radio("#rgFabric", FABRICS, "fabric", (b,o)=>{
+  b.className = "row-opt";
+  b.innerHTML = `<span><span class="nm">${o.name}</span><br><span class="ds">${o.desc}</span></span><span class="pr">${o.price?"+"+fmt(o.price):"incl."}</span>`;
+});
+radio("#rgTrim", TRIMS, "trim", (b,o)=>{
+  b.className = "sw"; b.title = o.name + (o.price?` · +${fmt(o.price)}`:"");
+  if(o.hex) b.style.background = `radial-gradient(circle at 35% 30%, ${shade(o.hex,.18)}, ${o.hex} 55%, ${shade(o.hex,-.22)})`;
+  else { b.style.background = "linear-gradient(135deg,#3A332B 50%,#241F1A 50%)"; b.dataset.tonal = "1"; }
+});
+radio("#rgHw", HARDWARE, "hw", (b,o)=>{
+  b.className = "sw"; b.title = o.name;
+  b.style.background = `radial-gradient(circle at 35% 30%, ${shade(o.hex,.4)}, ${o.hex} 60%, ${shade(o.hex,-.3)})`;
+});
+radio("#rgFit", FITS, "fit", (b,o)=>{ b.className="chip-opt"; b.textContent=o.name; });
+radio("#rgSize", SIZES.map(s=>({id:s,name:s})), "size", (b,o)=>{ b.className="chip-opt"; b.textContent=o.name; });
+
+/* ——— texture clones (silhouette → pattern overlay) ——— */
+$$("#pv .p-sil").forEach(p=>{
+  const c = p.cloneNode();
+  c.classList.remove("p-sil","p-body"); c.classList.add("tex");
+  c.removeAttribute("id"); c.setAttribute("stroke","none");
+  p.parentNode.querySelector(".texslot").appendChild(c);
+});
+
+/* ——— price ——— */
+function price(){
+  const g = GARMENTS[state.garment];
+  const col = COLORS.find(c=>c.id===state.color);
+  const fab = FABRICS.find(f=>f.id===state.fabric);
+  const trm = TRIMS.find(t=>t.id===state.trim);
+  const lines = [ { k:g.name, v:g.price, base:true } ];
+  if(fab.price) lines.push({ k:fab.name, v:fab.price });
+  if(col.price) lines.push({ k:col.name+" (seasonal)", v:col.price });
+  if(trm.price) lines.push({ k:"Contrast trim · "+trm.name, v:trm.price });
+  if(state.mono) lines.push({ k:`Monogram “${state.mono}”`, v:MONO_PRICE });
+  return { lines, total: lines.reduce((s,l)=>s+l.v,0) };
+}
+
+/* ——— animated totals ——— */
+let shownTotal = 0, animRaf = null;
+function animateTotal(target){
+  cancelAnimationFrame(animRaf);
+  const from = shownTotal, t0 = performance.now(), dur = 380;
+  (function step(now){
+    const p = Math.min(1,(now-t0)/dur), e = 1-Math.pow(1-p,3);
+    shownTotal = Math.round(from+(target-from)*e);
+    const txt = fmt(shownTotal);
+    $("#totalAmt").textContent = txt; $("#hdrTotal").textContent = txt; $("#mbarTotal").textContent = txt;
+    if(p<1) animRaf = requestAnimationFrame(step);
+  })(t0);
+}
+
+/* ——— render ——— */
+function render(){
+  const g   = GARMENTS[state.garment];
+  const col = COLORS.find(c=>c.id===state.color);
+  const fab = FABRICS.find(f=>f.id===state.fabric);
+  const trm = TRIMS.find(t=>t.id===state.trim);
+  const hw  = HARDWARE.find(h=>h.id===state.hw);
+  const fit = FITS.find(f=>f.id===state.fit);
+  const L = lum(col.hex);
+  const outline = L<0.5 ? shade(col.hex,.28) : shade(col.hex,-.35);
+  const stitch  = L>0.55 ? shade(col.hex,-.3) : shade(col.hex,.32);
+  const trimHex = trm.hex ?? shade(col.hex, L>0.5 ? -.12 : .14);
+  const monoFill = L>0.55 ? "#8C5A2B" : "#D9A441";
+
+  /* garment visibility + fit */
+  Object.values(GARMENTS).forEach(x=>{ $("#"+x.svg).style.display = "none"; });
+  $("#"+g.svg).style.display = "";
+  $("#gWrap").setAttribute("transform",`translate(210 0) scale(${fit.sx} 1) translate(-210 0)`);
+
+  /* recolour parts */
+  $$("#pv .p-body").forEach(p=>p.setAttribute("fill",col.hex));
+  $$("#pv .p-sil, #pv .p-out2").forEach(p=>{ p.setAttribute("stroke",outline); p.setAttribute("stroke-width","1.6"); p.setAttribute("stroke-linejoin","round"); });
+  $$("#pv .p-int").forEach(p=>p.setAttribute("fill",shade(col.hex,-.5)));
+  $$("#pv .p-trim").forEach(p=>{ p.setAttribute("fill",trimHex); p.setAttribute("stroke",outline); p.setAttribute("stroke-width","1"); p.setAttribute("stroke-linejoin","round"); });
+  $$("#pv .p-st").forEach(p=>{ p.setAttribute("stroke",stitch); p.setAttribute("stroke-width","1.2"); p.setAttribute("stroke-dasharray","3 4"); p.setAttribute("opacity",".75"); });
+  $$("#pv .p-hw").forEach(p=>p.setAttribute("stroke",hw.hex));
+  $$("#pv .p-hw-f").forEach(p=>{ p.setAttribute("fill",hw.hex); p.setAttribute("stroke",shade(hw.hex,-.35)); p.setAttribute("stroke-width",".8"); });
+  $$("#pv .tex").forEach(p=>{
+    if(state.fabric==="cotton"){ p.style.display="none"; }
+    else { p.style.display=""; p.setAttribute("fill",`url(#pat-${state.fabric==="twill"?"twill":"knit"})`); p.setAttribute("opacity",".55"); }
+  });
+  $$("#pv .p-mono").forEach(t=>{
+    t.textContent = state.mono;
+    t.setAttribute("fill",monoFill);
+    t.setAttribute("style","font-family:var(--display);letter-spacing:.16em");
+  });
+  /* tonal swatch mirrors current body colour */
+  const tonalSw = document.querySelector('#rgTrim [data-tonal]');
+  if(tonalSw) tonalSw.style.background = `linear-gradient(135deg, ${shade(col.hex,.1)} 50%, ${shade(col.hex,-.18)} 50%)`;
+
+  /* aria-checked states */
+  const checks = { rgGarment:state.garment, rgColor:state.color, rgFabric:state.fabric, rgTrim:state.trim, rgHw:state.hw, rgFit:state.fit, rgSize:state.size };
+  Object.entries(checks).forEach(([grp,val])=>{
+    $$("#"+grp+" [role=radio]").forEach(b=>b.setAttribute("aria-checked", b.dataset.id===val ? "true" : "false"));
+  });
+
+  /* group value labels */
+  $("#vGarment").textContent = g.name.replace("The ","") + " · " + fmt(g.price);
+  $("#vColor").textContent   = col.name + (col.price?` · +${fmt(col.price)}`:"");
+  $("#vFabric").textContent  = fab.name + (fab.price?` · +${fmt(fab.price)}`:"");
+  $("#vTrim").textContent    = trm.name + (trm.price?` · +${fmt(trm.price)}`:"");
+  $("#vHw").textContent      = hw.name;
+  $("#vFit").textContent     = fit.name;
+  $("#vSize").textContent    = state.size;
+  $("#vMono").textContent    = state.mono ? `“${state.mono}” · +${fmt(MONO_PRICE)}` : "None";
+  $("#trimLabel").textContent = g.trimLabel;
+  $("#grpHw").style.display = g.hw ? "" : "none";
+
+  /* stage caption */
+  $("#capName").textContent = g.name;
+  $("#capSpec").textContent = `${col.name} · ${fab.name}`;
+
+  /* receipt */
+  const pr = price();
+  $("#receipt").innerHTML = pr.lines.map(l=>
+    `<div class="ln"><span class="k">${l.k}</span><span class="v${l.base?"":" plus"}">${l.base?fmt(l.v):"+"+fmt(l.v)}</span></div>`
+  ).join("");
+  $("#specline").innerHTML =
+    `Colour <b>${col.name}</b> · Fit <b>${fit.name}</b> · Size <b>${state.size}</b>` +
+    (g.hw ? ` · Hardware <b>${hw.name}</b>` : "");
+  animateTotal(pr.total);
+  $("#orderBtn").textContent = `Order now — ${fmt(pr.total)}`;
+}
+
+/* ——— monogram input ——— */
+$("#monoInput").addEventListener("input", e=>{
+  const v = e.target.value.toUpperCase().replace(/[^A-Z]/g,"").slice(0,3);
+  e.target.value = v; state.mono = v; render();
+});
+
+/* ——— toast ——— */
+let toastT;
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove("on"), 2200);
+}
+
+/* ——— confetti ——— */
+function confetti(){
+  const cv = $("#confetti"), ctx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const cols = ["#D9A441","#B87333","#EFE7DA","#8C5A2B"];
+  const ps = Array.from({length:90},()=>({
+    x:innerWidth/2+(Math.random()-.5)*260, y:innerHeight/2-40,
+    vx:(Math.random()-.5)*7, vy:-(Math.random()*7+3),
+    s:Math.random()*5+3, r:Math.random()*Math.PI, vr:(Math.random()-.5)*.3,
+    c:cols[Math.random()*cols.length|0]
+  }));
+  const t0 = performance.now();
+  (function frame(now){
+    const dt = (now-t0)/1000;
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=.22; p.r+=p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+      ctx.globalAlpha = Math.max(0,1-dt/1.7);
+      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.62); ctx.restore();
+    });
+    if(dt<1.8) requestAnimationFrame(frame); else ctx.clearRect(0,0,cv.width,cv.height);
+  })(t0);
+}
+
+/* ——— order flow ——— */
+function placeOrder(btn){
+  const orig = btn.textContent;
+  btn.disabled = true; btn.textContent = "Placing order…";
+  setTimeout(()=>{
+    btn.disabled = false; btn.textContent = orig;
+    const g   = GARMENTS[state.garment];
+    const col = COLORS.find(c=>c.id===state.color);
+    const fab = FABRICS.find(f=>f.id===state.fabric);
+    const trm = TRIMS.find(t=>t.id===state.trim);
+    const hw  = HARDWARE.find(h=>h.id===state.hw);
+    const fit = FITS.find(f=>f.id===state.fit);
+    const pr  = price();
+    const now = new Date();
+    const rnd = Array.from({length:4},()=> "ACDEFHJKLMNPRTUVWXY34679"[Math.random()*24|0]).join("");
+    $("#ordNo").textContent = `Order № VM-${String(now.getFullYear()).slice(2)}${String(now.getMonth()+1).padStart(2,"0")}-${rnd}`;
+    const rows = [
+      ["Garment", g.name], ["Cloth", fab.name], ["Colour", col.name],
+      [g.trimLabel, trm.name], ...(g.hw?[["Hardware",hw.name]]:[]),
+      ["Fit / size", `${fit.name} / ${state.size}`],
+      ...(state.mono?[["Monogram", `“${state.mono}”`]]:[])
+    ];
+    $("#ovRecap").innerHTML =
+      rows.map(r=>`<div class="ln"><span class="k">${r[0]}</span><span class="v">${r[1]}</span></div>`).join("") +
+      `<div class="ln tt"><span class="k">Total</span><span class="v">${fmt(pr.total)}</span></div>`;
+    const eta = new Date(now.getTime()+18*864e5);
+    $("#ovEta").innerHTML = `Cut, sewn and shipped by <b>${eta.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}</b>.`;
+    $("#overlay").classList.add("on");
+    confetti();
+  }, 650);
+}
+$("#orderBtn").addEventListener("click", e=>placeOrder(e.currentTarget));
+$("#mbarBtn").addEventListener("click", e=>placeOrder(e.currentTarget));
+$("#ovDone").addEventListener("click", ()=>$("#overlay").classList.remove("on"));
+$("#ovNew").addEventListener("click", ()=>{
+  $("#overlay").classList.remove("on");
+  state = { ...DEFAULTS }; $("#monoInput").value = "";
+  render(); toast("Fresh build — make it yours.");
+  scrollTo({top:0,behavior:"smooth"});
+});
+$("#overlay").addEventListener("click", e=>{ if(e.target.id==="overlay") $("#overlay").classList.remove("on"); });
+$("#resetBtn").addEventListener("click", ()=>{
+  state = { ...DEFAULTS }; $("#monoInput").value = "";
+  render(); toast("Configurator reset.");
+});
+
+render();
+})();
+</script>
+</body>
+</html>

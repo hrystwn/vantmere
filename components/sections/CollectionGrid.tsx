@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSectionAnimation } from "@/lib/animation/useSectionAnimation";
 import { ScrollTrigger } from "@/lib/animation/gsap";
+import { editorialSpan } from "@/lib/layout";
 import ProductCard from "@/components/ui/ProductCard";
 import type { Category, Product } from "@/lib/data/types";
 
@@ -51,7 +52,7 @@ function Grid({ products }: { products: Product[] }) {
         <ProductCard
           key={product.slug}
           product={product}
-          className={SPAN_PATTERN[i % SPAN_PATTERN.length]}
+          className={editorialSpan(SPAN_PATTERN, i)}
         />
       ))}
     </div>

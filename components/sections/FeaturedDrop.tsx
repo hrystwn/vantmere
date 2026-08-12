@@ -2,10 +2,12 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useSectionAnimation } from "@/lib/animation/useSectionAnimation";
+import { editorialSpan } from "@/lib/layout";
 import SectionNumeral from "@/components/ui/SectionNumeral";
 import DrawnRule from "@/components/ui/DrawnRule";
+import MonoImage from "@/components/ui/MonoImage";
+import { formatPrice } from "@/lib/data/format";
 import type { Product } from "@/lib/data/types";
 
 // Staggered editorial placement for the three cards; mobile falls back to a single stacked column.
@@ -54,19 +56,16 @@ export default function FeaturedDrop({ products }: { products: Product[] }) {
             key={product.slug}
             href={`/collection/${product.slug}`}
             data-cursor="view"
-            className={`drop-card group block ${CARD_LAYOUT[i % CARD_LAYOUT.length]}`}
+            className={`drop-card group block ${editorialSpan(CARD_LAYOUT, i)}`}
           >
-            <div className="img-mono relative aspect-[3/4] overflow-hidden">
-              <Image
-                src={product.images.flat}
-                alt={product.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className="scale-125 object-cover"
-              />
-            </div>
+            <MonoImage
+              src={product.images.flat}
+              alt={product.name}
+              sizes="(max-width: 768px) 100vw, 40vw"
+              imageClassName="scale-125"
+            />
             <h3 className="display-md mt-6">{product.name}</h3>
-            <p className="micro-label mt-2 text-gray-2">${product.price.toLocaleString("en-US")}</p>
+            <p className="micro-label mt-2 text-gray-2">{formatPrice(product.price)}</p>
           </Link>
         ))}
       </div>

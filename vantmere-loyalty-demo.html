@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vantmere Circle — Member Rewards</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230D0B09' stroke='%23D9A441' stroke-width='2'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia' font-size='30' fill='%23D9A441'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ————— Vantmere Circle · design tokens ————— */
+:root{
+  --ink:#0D0B09;          /* warm near-black */
+  --panel:#161310;
+  --panel-2:#1C1815;
+  --line:#2B241E;
+  --line-2:#3B322A;
+  --cream:#EFE7DA;
+  --muted:#9A8F80;
+  --faint:#6E655A;
+  --copper:#D9A441;
+  --copper-2:#B87333;
+  --copper-deep:#8C5A2B;
+  --danger:#C96F5E;
+  --r:14px;
+  --display:'Marcellus', Georgia, 'Times New Roman', serif;
+  --body:'Archivo', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono:'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+/* warm vignette + fine grain */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(900px 500px at 50% -10%, rgba(217,164,65,.07), transparent 60%);
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+::selection{background:var(--copper);color:var(--ink)}
+button{font-family:var(--body);cursor:pointer;border:none;background:none;color:inherit}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-radius:4px}
+.eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--copper);
+}
+.hairline{height:1px;background:linear-gradient(90deg,var(--line-2),transparent);margin:10px 0 0}
+.mono{font-family:var(--mono)}
+
+/* ————— buttons ————— */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-size:14px;font-weight:600;letter-spacing:.02em;
+  padding:11px 20px;border-radius:10px;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease, opacity .15s ease;
+  white-space:nowrap;
+}
+.btn-copper{
+  background:linear-gradient(135deg,var(--copper),var(--copper-2));
+  color:#1A1108;
+  box-shadow:0 2px 14px rgba(217,164,65,.18);
+}
+.btn-copper:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(217,164,65,.30)}
+.btn-copper:active{transform:translateY(0)}
+.btn-ghost{
+  border:1px solid var(--line-2);color:var(--cream);background:transparent;
+}
+.btn-ghost:hover{border-color:var(--copper);color:var(--copper)}
+.btn[disabled]{opacity:.38;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* ————— welcome screen ————— */
+#welcome{
+  position:relative;z-index:1;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:48px 24px;text-align:center;
+}
+.welcome-inner{max-width:430px;width:100%}
+.roundel{
+  width:88px;height:88px;margin:0 auto 28px;border-radius:50%;
+  border:1px solid var(--copper-deep);
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.roundel::before{
+  content:"";position:absolute;inset:6px;border-radius:50%;
+  border:1px solid var(--line-2);
+}
+.roundel span{font-family:var(--display);font-size:38px;color:var(--copper);line-height:1;transform:translateY(2px)}
+.wordmark{
+  font-family:var(--display);font-size:30px;letter-spacing:.34em;text-indent:.34em;
+  color:var(--cream);margin-bottom:6px;
+}
+.welcome-inner .eyebrow{display:block;margin-bottom:34px}
+.welcome-inner h1{
+  font-family:var(--display);font-weight:400;font-size:32px;line-height:1.25;
+  margin-bottom:14px;
+}
+.welcome-inner p.lede{color:var(--muted);font-size:15.5px;margin-bottom:34px}
+#joinForm{display:flex;flex-direction:column;gap:12px;text-align:left}
+#joinForm label{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+#nameInput{
+  width:100%;padding:14px 16px;border-radius:10px;
+  background:var(--panel);border:1px solid var(--line-2);
+  color:var(--cream);font-size:16px;font-family:var(--body);
+  transition:border-color .15s ease;
+}
+#nameInput::placeholder{color:var(--faint)}
+#nameInput:focus{border-color:var(--copper);outline:none}
+#joinBtn{margin-top:6px;padding:14px 20px;font-size:15px}
+.fineprint{margin-top:26px;font-size:12.5px;color:var(--faint)}
+
+/* ————— app frame ————— */
+#app{position:relative;z-index:1;display:none;min-height:100vh;flex-direction:column}
+#app.on{display:flex}
+.shell{width:100%;max-width:1080px;margin:0 auto;padding:0 28px}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 0 20px;border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .roundel{width:40px;height:40px;margin:0}
+.brand .roundel::before{inset:3px}
+.brand .roundel span{font-size:19px;transform:translateY(1px)}
+.brand-name{font-family:var(--display);font-size:17px;letter-spacing:.28em;line-height:1}
+.brand-sub{font-size:10px;letter-spacing:.30em;color:var(--copper);margin-top:4px}
+#memberChip{font-size:13.5px;color:var(--muted)}
+#memberChip strong{color:var(--cream);font-weight:600}
+
+/* ————— hero: card + status ————— */
+.hero{
+  display:grid;grid-template-columns:minmax(0,470px) 1fr;gap:34px;
+  padding:44px 0 10px;align-items:center;
+}
+.card-stage{perspective:1100px}
+.member-card{
+  aspect-ratio:1.586;border-radius:20px;position:relative;overflow:hidden;
+  background:linear-gradient(155deg,#201B16 0%, #14100D 55%, #0F0C0A 100%);
+  border:1px solid var(--copper-deep);
+  box-shadow:0 24px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(239,231,218,.06);
+  padding:24px 28px;display:flex;flex-direction:column;justify-content:space-between;
+  transform-style:preserve-3d;transition:transform .2s ease;
+  will-change:transform;
+}
+.member-card::before{ /* inner hairline frame */
+  content:"";position:absolute;inset:9px;border-radius:13px;
+  border:1px solid rgba(217,164,65,.16);pointer-events:none;
+}
+.member-card .sheen{
+  position:absolute;inset:-60%;pointer-events:none;
+  background:linear-gradient(115deg,transparent 42%,rgba(239,231,218,.055) 50%,transparent 58%);
+  transform:translateX(-70%);transition:transform .9s ease;
+}
+.card-stage:hover .sheen{transform:translateX(55%)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start}
+.card-brand{font-family:var(--display);font-size:14px;letter-spacing:.30em;color:var(--cream)}
+.card-brand small{display:block;font-family:var(--body);font-size:9px;font-weight:600;letter-spacing:.34em;color:var(--copper);margin-top:5px}
+.chip{ /* decorative contact chip */
+  width:38px;height:28px;border-radius:6px;
+  background:linear-gradient(135deg,var(--copper) 0%,var(--copper-2) 60%,var(--copper-deep));
+  opacity:.9;position:relative;
+}
+.chip::after{content:"";position:absolute;inset:6px 5px;border:1px solid rgba(13,11,9,.5);border-radius:3px}
+.card-balance{line-height:1}
+.card-balance .num{
+  font-family:var(--display);font-size:clamp(44px,6vw,58px);color:var(--cream);
+  letter-spacing:.01em;
+}
+.card-balance .unit{font-size:11px;font-weight:700;letter-spacing:.30em;color:var(--copper);margin-left:10px}
+.card-balance .cap{display:block;font-size:10px;letter-spacing:.26em;color:var(--faint);margin-bottom:8px;font-weight:600}
+.card-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.card-name{font-size:13px;font-weight:600;letter-spacing:.20em;text-transform:uppercase;color:var(--cream);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tier-stamp{
+  flex:none;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--copper);border:1px solid var(--copper-deep);border-radius:999px;
+  padding:6px 13px;background:rgba(217,164,65,.07);
+}
+
+.status-panel h2{font-family:var(--display);font-weight:400;font-size:25px;margin:10px 0 4px}
+.status-panel .next-line{color:var(--muted);font-size:14.5px;margin-bottom:16px}
+.status-panel .next-line strong{color:var(--copper);font-weight:600}
+.bar{height:6px;border-radius:99px;background:var(--panel-2);overflow:hidden;border:1px solid var(--line)}
+.bar i{
+  display:block;height:100%;width:0%;border-radius:99px;
+  background:linear-gradient(90deg,var(--copper-2),var(--copper));
+  box-shadow:0 0 12px rgba(217,164,65,.5);
+  transition:width .7s cubic-bezier(.22,1,.36,1);
+}
+.stats{display:flex;gap:34px;margin-top:22px}
+.stat .k{font-family:var(--mono);font-size:19px;color:var(--cream)}
+.stat .l{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+
+/* ————— sections ————— */
+section.block{padding:38px 0 6px}
+.sec-head{margin-bottom:22px}
+.sec-head h3{font-family:var(--display);font-weight:400;font-size:23px;margin-top:8px}
+.sec-head p{color:var(--muted);font-size:14px;margin-top:4px}
+
+/* earn */
+.earn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.earn-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px 18px 18px;display:flex;flex-direction:column;gap:8px;
+  transition:border-color .15s ease, transform .15s ease;
+  position:relative;
+}
+.earn-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.earn-card .pts{
+  align-self:flex-start;font-family:var(--mono);font-size:12.5px;color:var(--copper);
+  border:1px solid var(--copper-deep);border-radius:999px;padding:3px 10px;
+  background:rgba(217,164,65,.06);
+}
+.earn-card h4{font-size:15.5px;font-weight:600;margin-top:4px}
+.earn-card p{font-size:13px;color:var(--muted);flex:1}
+.earn-card .btn{margin-top:10px;width:100%;padding:10px 12px;font-size:13.5px}
+.item-menu{display:none;flex-direction:column;gap:8px;margin-top:10px}
+.earn-card.open .item-menu{display:flex}
+.earn-card.open > .btn-ghost{display:none}
+.item-menu button{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 12px;border-radius:9px;border:1px solid var(--line-2);
+  font-size:13px;color:var(--cream);transition:border-color .12s ease,color .12s ease;
+}
+.item-menu button:hover{border-color:var(--copper);color:var(--copper)}
+.item-menu button span.mono{color:var(--copper);font-size:12px}
+.item-menu .close-menu{border:none;color:var(--faint);font-size:12px;padding:4px}
+.item-menu .close-menu:hover{color:var(--muted)}
+
+/* ladder / rewards */
+.rail-wrap{position:relative;margin:6px 0 18px}
+.rail{height:4px;border-radius:99px;background:var(--panel-2);border:1px solid var(--line);overflow:hidden}
+.rail i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--copper-2),var(--copper));transition:width .7s cubic-bezier(.22,1,.36,1)}
+.rail-nodes{position:absolute;inset:0;pointer-events:none}
+.rail-node{
+  position:absolute;top:50%;width:13px;height:13px;border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:var(--ink);border:2px solid var(--line-2);transition:border-color .3s ease, background .3s ease;
+}
+.rail-node.hit{background:var(--copper);border-color:var(--copper)}
+.rail-node:nth-child(1){left:16.66%}
+.rail-node:nth-child(2){left:50%}
+.rail-node:nth-child(3){left:83.33%}
+.reward-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.reward-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px 20px 18px;display:flex;flex-direction:column;gap:9px;
+  transition:border-color .2s ease, opacity .2s ease;
+}
+.reward-card.locked{opacity:.55}
+.reward-card.ready{border-color:var(--copper-deep)}
+.reward-tier{display:flex;justify-content:space-between;align-items:center}
+.reward-tier .t{font-size:11px;font-weight:700;letter-spacing:.20em;text-transform:uppercase;color:var(--copper)}
+.reward-tier .c{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.reward-card h4{font-family:var(--display);font-weight:400;font-size:19px;line-height:1.3}
+.reward-card p{font-size:13px;color:var(--muted);flex:1}
+.reward-state{margin-top:8px;min-height:44px;display:flex;flex-direction:column;gap:8px;justify-content:flex-end}
+.reward-state .hint{font-size:12px;color:var(--faint)}
+.reward-state .btn{width:100%;padding:10px 12px;font-size:13.5px}
+.voucher{
+  display:flex;align-items:center;justify-content:space-between;
+  border:1px dashed var(--copper-deep);border-radius:9px;padding:8px 12px;
+  background:rgba(217,164,65,.05);
+}
+.voucher .code{font-family:var(--mono);font-size:13px;color:var(--copper);letter-spacing:.08em}
+.voucher .lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+
+/* ledger */
+#ledger{list-style:none;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);overflow:hidden}
+#ledger li{
+  display:grid;grid-template-columns:110px 1fr auto;gap:14px;align-items:center;
+  padding:12px 18px;border-bottom:1px solid var(--line);font-size:13.5px;
+}
+#ledger li:last-child{border-bottom:none}
+#ledger .ts{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+#ledger .lb{color:var(--cream)}
+#ledger .dl{font-family:var(--mono);font-size:13px}
+#ledger .dl.plus{color:var(--copper)}
+#ledger .dl.minus{color:var(--muted)}
+#ledger .empty{display:block;padding:22px 18px;color:var(--faint);font-size:13.5px}
+
+/* footer */
+footer{
+  margin-top:auto;border-top:1px solid var(--line);
+  padding:20px 0 26px;
+}
+.foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.foot-row .note{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+#resetBtn{font-size:12.5px;color:var(--faint);border:1px solid var(--line);border-radius:8px;padding:7px 14px;transition:color .15s,border-color .15s}
+#resetBtn:hover{color:var(--danger);border-color:var(--danger)}
+
+/* ————— toast ————— */
+#toast{
+  position:fixed;left:50%;bottom:30px;transform:translate(-50%,16px);
+  background:var(--panel-2);border:1px solid var(--copper-deep);
+  color:var(--cream);border-radius:10px;padding:11px 20px;font-size:14px;
+  opacity:0;pointer-events:none;z-index:60;transition:opacity .25s ease, transform .25s ease;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);white-space:nowrap;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast b{color:var(--copper);font-weight:600}
+
+/* ————— milestone overlay ————— */
+#overlay{
+  position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+  background:rgba(9,7,5,.72);backdrop-filter:blur(5px);padding:24px;
+}
+#overlay.on{display:flex}
+.ms-card{
+  max-width:420px;width:100%;text-align:center;
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid var(--copper-deep);border-radius:18px;padding:42px 36px 34px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+  animation:msIn .45s cubic-bezier(.22,1,.36,1);
+}
+@keyframes msIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.ms-card .eyebrow{display:block;margin-bottom:14px}
+.ms-card h3{font-family:var(--display);font-weight:400;font-size:34px;color:var(--cream);margin-bottom:6px}
+.ms-rule{width:56px;height:1px;background:var(--copper);margin:16px auto}
+.ms-card .bonus{font-family:var(--mono);font-size:15px;color:var(--copper);margin-bottom:8px}
+.ms-card .unlockline{font-size:14px;color:var(--muted);margin-bottom:26px}
+#confetti{position:fixed;inset:0;z-index:55;pointer-events:none}
+
+/* ————— responsive ————— */
+@media (max-width:920px){
+  .hero{grid-template-columns:1fr;gap:30px}
+  .earn-grid{grid-template-columns:repeat(2,1fr)}
+  .reward-grid{grid-template-columns:1fr}
+  .rail-wrap{display:none}
+}
+@media (max-width:520px){
+  .shell{padding:0 18px}
+  .earn-grid{grid-template-columns:1fr}
+  .stats{gap:22px}
+  #ledger li{grid-template-columns:1fr auto}
+  #ledger .ts{display:none}
+  .wordmark{font-size:24px}
+}
+/* ————— reduced motion ————— */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .member-card{transform:none!important}
+  .card-stage:hover .sheen{transform:translateX(-70%)}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ WELCOME ═══════════ -->
+<section id="welcome">
+  <div class="welcome-inner">
+    <div class="roundel" aria-hidden="true"><span>V</span></div>
+    <div class="wordmark">VANTMERE</div>
+    <span class="eyebrow">The Circle · Members Programme</span>
+    <h1>Welcome to the Circle.</h1>
+    <p class="lede">Earn points every time you visit, refer, or review. Trade them for drinks, discounts and members-only releases.</p>
+    <form id="joinForm">
+      <label for="nameInput">Your name</label>
+      <input id="nameInput" type="text" maxlength="40" autocomplete="off" placeholder="How should we greet you?" required>
+      <button type="submit" id="joinBtn" class="btn btn-copper">Join the Circle</button>
+    </form>
+    <p class="fineprint">Demo build · your data stays in this browser.</p>
+  </div>
+</section>
+
+<!-- ═══════════ APP ═══════════ -->
+<div id="app">
+  <header>
+    <div class="shell">
+      <div class="topbar">
+        <div class="brand">
+          <div class="roundel" aria-hidden="true"><span>V</span></div>
+          <div>
+            <div class="brand-name">VANTMERE</div>
+            <div class="brand-sub">THE CIRCLE</div>
+          </div>
+        </div>
+        <div id="memberChip"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <!-- hero -->
+    <div class="hero">
+      <div class="card-stage">
+        <div class="member-card" id="memberCard">
+          <div class="sheen"></div>
+          <div class="card-top">
+            <div class="card-brand">VANTMERE<small>CIRCLE MEMBER</small></div>
+            <div class="chip" aria-hidden="true"></div>
+          </div>
+          <div class="card-balance">
+            <span class="cap">POINTS BALANCE</span>
+            <span class="num" id="cardPts">0</span><span class="unit">PTS</span>
+          </div>
+          <div class="card-foot">
+            <div class="card-name" id="cardName"></div>
+            <div class="tier-stamp" id="cardTier">HOUSE</div>
+          </div>
+        </div>
+      </div>
+      <div class="status-panel">
+        <span class="eyebrow">Status</span>
+        <h2 id="statusTitle"></h2>
+        <p class="next-line" id="nextLine"></p>
+        <div class="bar"><i id="heroBar"></i></div>
+        <div class="stats">
+          <div class="stat"><div class="k" id="statLifetime">0</div><div class="l">Lifetime pts</div></div>
+          <div class="stat"><div class="k" id="statRedeemed">0</div><div class="l">Rewards claimed</div></div>
+          <div class="stat"><div class="k" id="statSince">—</div><div class="l">Member since</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- earn -->
+    <section class="block" aria-labelledby="earnH">
+      <div class="sec-head">
+        <span class="eyebrow">Earn</span>
+        <h3 id="earnH">Ways to earn</h3>
+        <div class="hairline"></div>
+      </div>
+      <div class="earn-grid">
+        <div class="earn-card" id="purchaseCard">
+          <span class="pts">+25–60</span>
+          <h4>Make a purchase</h4>
+          <p>Points scale with your order.</p>
+          <button class="btn btn-ghost" id="purchaseToggle">Record a purchase</button>
+          <div class="item-menu" id="itemMenu"></div>
+        </div>
+        <div class="earn-card">
+          <span class="pts">+10</span>
+          <h4>Check in</h4>
+          <p>At the counter, every visit counts.</p>
+          <button class="btn btn-ghost" data-earn="checkin">Check in</button>
+        </div>
+        <div class="earn-card">
+          <span class="pts">+50</span>
+          <h4>Refer a friend</h4>
+          <p>They join the Circle, you both win.</p>
+          <button class="btn btn-ghost" data-earn="referral">Count a referral</button>
+        </div>
+        <div class="earn-card">
+          <span class="pts">+15</span>
+          <h4>Leave a review</h4>
+          <p>Tell the internet how we did.</p>
+          <button class="btn btn-ghost" data-earn="review">Leave a review</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- rewards / ladder -->
+    <section class="block" aria-labelledby="rwH">
+      <div class="sec-head">
+        <span class="eyebrow">Rewards</span>
+        <h3 id="rwH">The ladder</h3>
+        <p>Lifetime points unlock each rung. Spend your balance to claim it.</p>
+        <div class="hairline"></div>
+      </div>
+      <div class="rail-wrap">
+        <div class="rail"><i id="railFill"></i></div>
+        <div class="rail-nodes" aria-hidden="true">
+          <span class="rail-node" data-at="100"></span>
+          <span class="rail-node" data-at="250"></span>
+          <span class="rail-node" data-at="500"></span>
+        </div>
+      </div>
+      <div class="reward-grid" id="rewardGrid"></div>
+    </section>
+
+    <!-- ledger -->
+    <section class="block" aria-labelledby="lgH">
+      <div class="sec-head">
+        <span class="eyebrow">Activity</span>
+        <h3 id="lgH">Ledger</h3>
+        <div class="hairline"></div>
+      </div>
+      <ul id="ledger"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <div class="foot-row">
+        <span class="note">Vantmere · Demo build</span>
+        <button id="resetBtn" type="button">Reset demo</button>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- milestone overlay + confetti + toast -->
+<div id="overlay" role="dialog" aria-modal="true" aria-labelledby="msTier">
+  <div class="ms-card">
+    <span class="eyebrow">Milestone</span>
+    <h3 id="msTier"></h3>
+    <div class="ms-rule"></div>
+    <div class="bonus" id="msBonus"></div>
+    <div class="unlockline" id="msReward"></div>
+    <button class="btn btn-copper" id="msClose">Carry on</button>
+  </div>
+</div>
+<canvas id="confetti"></canvas>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ═══════════ VANTMERE CIRCLE · demo logic ═══════════ */
+// JS
+</script>
+</body>
+</html>

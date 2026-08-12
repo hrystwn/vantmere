@@ -11,7 +11,7 @@ export default function Template({
     <>
       {children}
       <motion.div
-        className="fixed inset-0 z-[80] bg-ink flex items-center justify-center pointer-events-none"
+        className="fixed inset-0 z-[var(--z-transition)] bg-ink flex items-center justify-center pointer-events-none"
         initial={{ y: 0 }}
         animate={{ y: "-100%" }}
         transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}

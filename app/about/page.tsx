@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import SectionNumeral from "@/components/ui/SectionNumeral";
 import DrawnRule from "@/components/ui/DrawnRule";
 import Footer from "@/components/ui/Footer";
 import ManifestoLines from "@/components/sections/ManifestoLines";
+import MonoImage from "@/components/ui/MonoImage";
 
 export const metadata: Metadata = {
   title: "About — VANTMÈRE",
@@ -37,15 +37,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="img-mono relative h-[70vh] w-full md:h-screen">
-        <Image
-          src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?q=80&w=2000&auto=format&fit=crop"
-          alt="A folded wool garment in ash gray, photographed under flat studio light."
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-      </div>
+      <MonoImage
+        src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?q=80&w=2000&auto=format&fit=crop"
+        alt="A folded wool garment in ash gray, photographed under flat studio light."
+        sizes="100vw"
+        wrapperClassName="relative h-[70vh] w-full md:h-screen"
+      />
 
       <section className="flex min-h-[60vh] items-center bg-ink px-6 py-32 text-paper md:py-40">
         <p className="display-lg max-w-4xl">Quiet permanence.</p>
